@@ -1,9 +1,6 @@
-const mode = "production";
 const pkg = require("./package.json");
 
 module.exports = {
-    // mode defaults to 'production' if not set
-    mode: mode,
     entry: "./src/index.ts",
     module: {
         rules: [
