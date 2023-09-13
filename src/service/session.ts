@@ -3,6 +3,7 @@ import {IIPData} from "../interface/ip-data";
 import {LocalStorageService} from "./local-storage";
 import {clearInterval} from "timers";
 import {IWindow} from "../interface/window";
+import {UtilityService} from "./utility";
 
 declare const window: IWindow;
 
@@ -21,8 +22,11 @@ export class SessionService {
     private _sessionStore: SessionStorageService = new SessionStorageService();
 
     public initSession(): void {
+
         this.setIPAndCountry();
         this.startSession();
+
+        if (window.isDevelopmentMode) console.log(`New session started`);
     }
 
     private setIPAndCountry(): void {
@@ -39,26 +43,32 @@ export class SessionService {
                     console.log(`Country detected: ${this._sessionStore.retrieve(this._countryKey)}`);
                 }
             })
-            .catch((error) => {
-                console.error('unable to get ip', error);
+            .catch((error): void => {
+                if (window.isDevelopmentMode)
+                    console.error('Unable to get IP', error);
             })
         ;
     }
 
-    private checkSessionActivity(): void {
+    private checkSessionActivity = (): void => {
 
         const currenTimeInMilliseconds: number = Date.now();
 
-        if (currenTimeInMilliseconds > this._sessionExpiryTimeInMilliseconds) {
-            this.startSession();
-        }
+        if (window.isDevelopmentMode)
+            console.log(`session will be active for:  ${
+                UtilityService.convertSecondsToMinuteAndSeconds(
+                    Math.floor((this._sessionExpiryTimeInMilliseconds - currenTimeInMilliseconds) / 1000)
+                )
+            }`);
 
-        this.startSession();
+        if (currenTimeInMilliseconds > this._sessionExpiryTimeInMilliseconds) {
+            this.resetSession();
+        }
     }
 
     private startSession(): void {
 
-        if (this._sessionCheckInterval != null)
+        if (this._sessionCheckInterval != 0)
             clearInterval(this._sessionCheckInterval);
 
         this._sessionExpiryTimeInMilliseconds = Date.now() + SessionService._sessionDurationInMinutes * 60 * 1000;
@@ -71,11 +81,17 @@ export class SessionService {
     }
 
     private extendSession(): void {
+
+        if (window.isDevelopmentMode) console.log(`Existing session extended`);
+
         this._isNewSession = false;
         this.startSession();
     }
 
     private resetSession(): void {
+
+        if (window.isDevelopmentMode) console.log(`New session started`);
+
         this._isNewSession = true;
         this.startSession();
     }

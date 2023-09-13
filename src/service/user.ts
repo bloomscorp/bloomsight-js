@@ -1,6 +1,9 @@
 import {LocalStorageService} from "./local-storage";
 import {isEmptyString} from "bmx-pastebox"
 import {UtilityService} from "./utility";
+import {IWindow} from "../interface/window";
+
+declare const window: IWindow
 
 export class UserService {
 
@@ -14,9 +17,11 @@ export class UserService {
 
     public initUser(): void {
 
-        if (!this.isValidUserExists())
+        if (!this.isValidUserExists()) {
             this.generateNewUser();
-
+        } else {
+            if (window.isDevelopmentMode) console.log(`Existing user retrieved: ${this._userId}`);
+        }
     }
 
     private isValidUserExists(): boolean {
@@ -33,6 +38,8 @@ export class UserService {
         this._isNewUser = true;
 
         this.storeUser(this._userId);
+
+        if (window.isDevelopmentMode) console.log(`New user generated: ${this._userId}`);
     }
 
     private storeUser(userId: string): void {
