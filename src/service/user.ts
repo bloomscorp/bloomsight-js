@@ -11,7 +11,7 @@ export class UserService {
 
     private _userId: string | null = null;
     private _userKey: string = "EUJLo$Wu$6iH#s";
-    private _isNewUser: boolean = false;
+    public isNewUser: boolean = false;
 
     private _localStore: LocalStorageService = new LocalStorageService();
 
@@ -35,7 +35,7 @@ export class UserService {
     private generateNewUser(): void {
 
         this._userId = UtilityService.getUniqueId();
-        this._isNewUser = true;
+        this.isNewUser = true;
 
         this.storeUser(this._userId);
 
