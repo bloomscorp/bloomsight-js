@@ -6,9 +6,8 @@ export class UtilityService {
 
     public static convertSecondsToMinuteAndSeconds(seconds: number): string {
 
-        if (seconds < 0) {
-            return 'Invalid input';
-        }
+        if (seconds < 0)
+            return '0 seconds';
 
         const minutes: number = Math.floor(seconds / 60);
         const remainingSeconds: number = seconds % 60;

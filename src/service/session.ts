@@ -69,7 +69,7 @@ export class SessionService {
     private startSession(): void {
 
         if (this._sessionCheckInterval != 0)
-            clearInterval(this._sessionCheckInterval);
+            window.clearInterval(this._sessionCheckInterval);
 
         this._sessionExpiryTimeInMilliseconds = Date.now() + SessionService._sessionDurationInMinutes * 60 * 1000;
         this._localStore.store(
