@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "A client side javascript library for footprint",
   "scripts": {
-    "build": "webpack --mode production",
+    "build-dev": "webpack --mode development",
+    "build-prod": "webpack --mode production",
     "update-cdn": "node ./script/update-cdn.js",
-    "bundle": "npm run build && npm run update-cdn"
+    "bundle-dev": "npm run build-dev",
+    "bundle-prod": "npm run build-prod && npm run update-cdn"
   },
   "author": "bloomscorp",
   "license": "ISC",
