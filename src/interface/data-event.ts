@@ -1,3 +1,5 @@
+import {IMetaData} from "./metadata";
+
 export interface IDataEvent {
     property: string;
     dataEventToken: string;
@@ -10,7 +12,5 @@ export interface IDataEvent {
     newUser?: boolean;
     returningUser?: boolean;
     newSession?: boolean;
-    eventLogData: {
-        [key: string]: string;
-    }
+    eventLogData: IMetaData
 }
