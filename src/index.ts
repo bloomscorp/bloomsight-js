@@ -5,6 +5,7 @@ import {DataEventTransmissionService} from "./transmission/data-event";
 import {SimpleEventTransmissionService} from "./transmission/simple-event";
 import {IMetaData} from "./interface/metadata";
 import {IWindow} from "./interface/window";
+import {ConstantService} from "./service/constant";
 
 declare const window: IWindow;
 
@@ -18,6 +19,17 @@ const _dataEventService: DataEventTransmissionService = new DataEventTransmissio
 _platform.initPlatform();
 _session.initSession();
 _user.initUser();
+
+window.bloomsightConfig = (key: string, value: string): void => {
+
+    if (key == ConstantService.PROPERTY_TOKEN_CONFIG) {
+        window.propertyToken = value;
+
+        if (window.isDevelopmentMode)
+            console.log(`Property ID: ${window.propertyToken}`);
+    }
+
+}
 
 window.logBloomsightSimpleEvent = (eventToken: string): void => {
     console.log('Simple Event Logged', eventToken);
