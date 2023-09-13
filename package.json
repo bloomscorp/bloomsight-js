@@ -1,0 +1,24 @@
+{
+  "name": "bloomsight.js",
+  "version": "1.0.0",
+  "description": "A client side javascript library for footprint",
+  "scripts": {
+    "build": "webpack --mode production",
+    "update-cdn": "node ./script/update-cdn.js",
+    "bundle": "npm run build && npm run update-cdn"
+  },
+  "author": "bloomscorp",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "timers-browserify": "^2.0.12",
+    "ts-loader": "^9.4.4",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "bmx-pastebox": "^1.0.14",
+    "bmx-transmission": "^0.0.10"
+  },
+  "sideEffects": false
+}
