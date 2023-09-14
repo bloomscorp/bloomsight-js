@@ -13,7 +13,7 @@ export class PlatformService {
         this._userAgent = window.navigator.userAgent;
     }
 
-    public initPlatform(): void {
+    public init(): void {
 
         this.detectBrowser();
         this.detectOS();
