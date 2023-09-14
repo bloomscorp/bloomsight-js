@@ -16,12 +16,12 @@ export class SessionService {
     private _sessionExpiryTimeKey: string = 'WkDw3aZ#HD6^Ar';
     private _sessionExpiryTimeInMilliseconds: number = 0;
     private _sessionCheckInterval: number = 0;
-    private _isNewSession: boolean = true;
+    public isNewSession: boolean = true;
 
     private _localStore: LocalStorageService = new LocalStorageService();
     private _sessionStore: SessionStorageService = new SessionStorageService();
 
-    public initSession(): void {
+    public init(): void {
 
         this.setIPAndCountry();
         this.startSession();
@@ -35,8 +35,8 @@ export class SessionService {
             .then((resp: Response) => resp.json())
             .then((ipData: IIPData): void => {
 
-                this._sessionStore.store(this._ipKey, ipData.ip);
-                this._sessionStore.store(this._countryKey, ipData.country)
+                this.storeIP(ipData.ip);
+                this.storeCountryCode(ipData.country);
 
                 if (window.isDevelopmentMode) {
                     console.log(`IP detected: ${this._sessionStore.retrieve(this._ipKey)}`);
@@ -80,11 +80,11 @@ export class SessionService {
         this._sessionCheckInterval = window.setInterval(this.checkSessionActivity, 60 * 1000);
     }
 
-    private extendSession(): void {
+    public extendSession(): void {
 
         if (window.isDevelopmentMode) console.log(`Existing session extended`);
 
-        this._isNewSession = false;
+        this.isNewSession = false;
         this.startSession();
     }
 
@@ -92,7 +92,35 @@ export class SessionService {
 
         if (window.isDevelopmentMode) console.log(`New session started`);
 
-        this._isNewSession = true;
+        this.isNewSession = true;
         this.startSession();
     }
+
+    private storeIP(ip: string): void {
+        this._sessionStore.store(this._ipKey, ip);
+    }
+
+    public retrieveIP(): string {
+        return this._sessionStore.retrieve(this._ipKey);
+    }
+
+    private storeCountryCode(code: string): void {
+        this._sessionStore.store(this._countryKey, code);
+    }
+
+    public retrieveCountryCode(): string {
+        return this._sessionStore.retrieve(this._countryKey);
+    }
+
+    public retrieveSessionExpiryTime(): number {
+
+        if (this._sessionExpiryTimeInMilliseconds != 0)
+            return this._sessionExpiryTimeInMilliseconds;
+
+        this._sessionExpiryTimeInMilliseconds = +this._localStore.retrieve(this._sessionExpiryTimeKey);
+
+        return this._sessionExpiryTimeInMilliseconds;
+    }
+
+
 }
