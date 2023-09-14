@@ -5,7 +5,7 @@ export class ConfigurationService {
 
     private static readonly SECURE_CONNECT: boolean = ConfigurationService.PRODUCTION;
     private static readonly PROTOCOL: string = ConfigurationService.SECURE_CONNECT ? 'https://' : 'http://';
-    private static readonly DOMAIN_PRODUCTION: string = 'loom.anuprerna.com';
+    private static readonly DOMAIN_PRODUCTION: string = 'api.bloomsight.io';
     private static readonly DOMAIN_LOCALHOST: string = 'localhost';
     private static readonly API_PREFIX: string = '/api/v1';
     private static readonly DOMAIN: string = ConfigurationService.PRODUCTION
