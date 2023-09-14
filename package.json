@@ -19,8 +19,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "bmx-pastebox": "^1.0.14",
-    "bmx-transmission": "^0.0.10"
+    "bmx-pastebox": "^1.0.14"
   },
   "sideEffects": false
 }
