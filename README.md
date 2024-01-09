@@ -22,7 +22,7 @@ You can include your library in your project using the following methods:
 You can include the library in your HTML file using a CDN link. Add the following script tag to your HTML file:
 
 ```html
-<script src=https://cdn.jsdelivr.net/gh/bloomscorp/bloomsight-js/dist/bloomsight@1.0.0.js"></script>
+<script src=https://cdn.jsdelivr.net/gh/bloomscorp/bloomsight-js/dist/bloomsight@1.0.1.js"></script>
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ for production**.
     window.isDevelopmentMode = true; // keep this line before the cdn link
 </script>
 
-<script src=https://cdn.jsdelivr.net/gh/bloomscorp/bloomsight-js/dist/bloomsight@1.0.0.js"></script>
+<script src=https://cdn.jsdelivr.net/gh/bloomscorp/bloomsight-js/dist/bloomsight@1.0.1.js"></script>
 ```
 
 ## API Documentation
