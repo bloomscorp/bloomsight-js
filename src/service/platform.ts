@@ -5,6 +5,7 @@ declare const window: IWindow;
 export class PlatformService {
 
     public browser: string = '';
+    public browserVersion: string = '';
     public os: string = '';
     public device: string = '';
     private readonly _userAgent: string = '';
@@ -16,11 +17,12 @@ export class PlatformService {
     public init(): void {
 
         this.detectBrowser();
+        this.detectBrowserVersion();
         this.detectOS();
         this.detectDevice();
 
         if (window.isDevelopmentMode) {
-            console.log(`Browser detected: ${this.browser}`);
+            console.log(`Browser detected: ${this.browser} (v${this.browserVersion})`);
             console.log(`OS detected:  ${this.os}`);
             console.log(`Device detected:  ${this.device}`);
         }
@@ -52,6 +54,11 @@ export class PlatformService {
         } else {
             this.browser = "Unknown";
         }
+    }
+
+    private detectBrowserVersion(): void {
+        const match: RegExpMatchArray | null = this._userAgent.match(/(Chrome|Firefox|Safari|Edge|IE|Opera|Trident)[\/\s](\d+(\.\d+)*)/);
+        this.browserVersion = match ? match[2] : 'Unknown';
     }
 
     private detectOS(): void {

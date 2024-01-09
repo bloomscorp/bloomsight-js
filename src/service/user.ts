@@ -15,7 +15,7 @@ export class UserService {
 
     private _localStore: LocalStorageService = new LocalStorageService();
 
-    public initUser(): void {
+    public init(): void {
 
         if (!this.isValidUserExists()) {
             this.generateNewUser();
